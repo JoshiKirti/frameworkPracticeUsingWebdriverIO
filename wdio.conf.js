@@ -24,10 +24,10 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        './tests/**.js'
+        './tests/e2e - login.js'
     ],
     // Patterns to exclude.
-    exclude: ['./tests/example.js'],
+    exclude: ['./tests/example.js', './tests/actions.js', './tests/e2e - login.js'],
     //
     // ============
     // Capabilities

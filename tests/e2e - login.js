@@ -1,4 +1,5 @@
 import {short, medium, long} from '../lib/timeouts'
+import App from '../pageObjects/App'
 import loginPage from '../pageObjects/pages/loginPage'
 
 describe('Login and Logout Journey', () => {
@@ -50,7 +51,7 @@ describe('Login and Logout Journey', () => {
 
 
     it ('login using invalid credentials', () => {
-        browser.url('http://zero.webappsecurity.com/index.html')
+        // browser.url('http://zero.webappsecurity.com/index.html')
         // const signin = $('#signin_button')
         // signin.waitForExist()
         // signin.click()
@@ -64,6 +65,8 @@ describe('Login and Logout Journey', () => {
         // const errorMsg = $('.alert-error')
         // expect(errorMsg).toHaveText('Login and/or password are wrong.')
 
+
+        App.openHomepage()
         loginPage.clickOnSigninBtn()
         loginPage.fillForm()
         loginPage.submitBtn()

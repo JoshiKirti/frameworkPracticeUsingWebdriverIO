@@ -1,26 +1,24 @@
+import {short, medium, long} from '../lib/timeouts'
+import App from '../pageObjects/App'
+import loginPage from '../pageObjects/pages/loginPage'
+import navbar from '../pageObjects/componants/navbar'
+import insideNavbar from '../pageObjects/componants/insideNavbar'
+import transactionPage from '../pageObjects/pages/transactionPage'
+
 describe('e2e - find transaction', () => {
     it ('login to the application', () => {
-        browser.url('http://zero.webappsecurity.com/index.html')
-        const signin = $('#signin_button')
-        signin.waitForExist()
-        signin.click()
-        const username = $('#user_login')
-        username.waitForExist()
-        username.setValue('username')
-        const password = $('#user_password')
-        password.setValue('password')
-        const submit = $('input[type="submit"]')
-        submit.click()
-        $('.nav-tabs').waitForExist()
+        App.openLoginPage()
+        loginPage.login('username', 'password')
+        navbar.navtabIsVisible()
     })
 
     it ('transaction filter shd work', () => {
-        $('#account_activity_tab').click()
-        $('/html/body/div[1]/div[2]/div/div[2]/div/div/div/ul/li[2]/a').click()
-        $('#aa_description').setValue('test')
-        $('#aa_type').selectByAttribute('value', 'DEPOSIT')
-        $('button[type="submit"]').click()
-        const errorMsg = $('#filtered_transactions_for_account')
+        insideNavbar.clickAccountActivityTab()
+        insideNavbar.clickTransactionsTab()
+        transactionPage.setDescription('test')
+        // $('#aa_type').selectByAttribute('value', 'DEPOSIT')
+        transactionPage.clickSubmitBtn()
+        const errorMsg = transactionPage.errorMsg
         expect(errorMsg).toHaveText('No results.')
     })
 })

@@ -1,21 +1,19 @@
+import {short, medium, long} from '../lib/timeouts'
 import App from '../pageObjects/App'
+import loginPage from '../pageObjects/pages/loginPage'
+import navbar from '../pageObjects/componants/navbar'
+import feedbackPage from '../pageObjects/pages/feedbackPage'
 
 describe ('feedback form', () => {
     it ('Shd load the feedback form', () => {
-        //browser.url('http://zero.webappsecurity.com/index.html')
-        App.openHomepage()
-        $('#feedback').waitForExist()
-        $('#feedback').click()
+        App.openFeedbackPage()
+        feedbackPage.feedbackTitleIsVisible()
     })
 
     it ('Shd submit the feedback form', () => {
-        $('#name').waitForExist()
-        $('#name').setValue('Kirti')
-        $('#email').setValue('kirti@login.com')
-        $('#subject').setValue('subject')
-        $('#comment').setValue('feedback form')
-        $('input[type="submit"]').click()
-        // $('#feedback-title').waitForExist()
+        feedbackPage.fillform('kirti', 'kirti@test', 'subject', 'comment')
+        feedbackPage.clickSubmitBtn()
+        feedbackPage.feedbackTitleIsVisible()
         expect(browser).toHaveUrl('http://zero.webappsecurity.com/sendFeedback.html')
     })
 })

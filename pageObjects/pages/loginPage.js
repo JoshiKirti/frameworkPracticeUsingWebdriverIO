@@ -1,9 +1,7 @@
 import Base from '../Base'
 
+
 class loginPage extends Base {
-    get signinBtn() {
-        return $('#signin_button')
-    }
 
     get usernameInput() {
         return $('#user_login')
@@ -17,27 +15,26 @@ class loginPage extends Base {
         return $('input[type="submit"]')
     }
 
-    get errorMsg() {
+    get error() {
         return $('.alert-error')
     }
 
-    clickOnSigninBtn() {
-        this.signinBtn.waitForExist()
-        this.signinBtn.click()
-    }
 
     fillForm(username, password) {
         this.usernameInput.setValue(username)
         this.passwordInput.setValue(password)
     }
 
-    submitBtn() {
-        this.submitBtn.waitForExist()
+    login(username, password) {
+        this.usernameInput.waitForExist()
+        this.usernameInput.setValue(username)
+        this.passwordInput.setValue(password)
         this.submitBtn.click()
     }
 
-    errorMsgValidation() {
-        this.errorMsg.toHaveText('Login and/or password are wrong.')
+    ClickOnsubmitBtn() {
+        this.submitBtn.waitForExist()
+        this.submitBtn.click()
     }
 
 

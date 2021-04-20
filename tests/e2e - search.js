@@ -1,12 +1,13 @@
+import navbar from "../pageObjects/componants/navbar"
+import App from '../pageObjects/App'
+
 describe ('E2E tests - search', () =>{
     it ('shd load homepage', () => {
-        browser.url('http://zero.webappsecurity.com/index.html')
-        $('#searchTerm').waitForExist()
+        App.openHomepage()
     })
 
     it ('shd submit the searchbox', () => {
-        $('#searchTerm').setValue('bank')
-        browser.keys('Enter')
+       navbar.clickSearchBox('bank')  
     })
 
 })

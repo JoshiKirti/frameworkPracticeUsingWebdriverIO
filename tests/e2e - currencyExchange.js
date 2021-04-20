@@ -1,29 +1,26 @@
+import {short, medium, long} from '../lib/timeouts'
+import App from '../pageObjects/App'
+import loginPage from '../pageObjects/pages/loginPage'
+import navbar from '../pageObjects/componants/navbar'
+import insideNavbar from '../pageObjects/componants/insideNavbar'
+import exchangePage from '../pageObjects/pages/exchangePage'
+
 describe('e2e - currency exchange', () => {
     it ('login to the application', () => {
-        browser.url('http://zero.webappsecurity.com/index.html')
-        const signin = $('#signin_button')
-        signin.waitForExist()
-        signin.click()
-        const username = $('#user_login')
-        username.waitForExist()
-        username.setValue('username')
-        const password = $('#user_password')
-        password.setValue('password')
-        const submit = $('input[type="submit"]')
-        submit.click()
-        $('.nav-tabs').waitForExist()
+        App.openLoginPage()
+        loginPage.login('username', 'password')
+        navbar.navtabIsVisible()
     })
 
     it ('shd make currency exchange', () => {
-        $('#pay_bills_tab').waitForExist()
-        $('#pay_bills_tab').click()
-        $('#tabs > ul > li:nth-child(3) > a').click()
-        const currency = $('#pc_currency')
+        insideNavbar.clickPayBills()
+        insideNavbar.clickExchange()
+        const currency = insideNavbar.currency
         currency.selectByAttribute('value', 'CAD')
-        $('#pc_amount').setValue('500')
-        $('#pc_inDollars_true').click()
-        $('#purchase_cash').click()
-        const successMsg = $('#alert_content')
+        exchangePage.setAmount('500')
+        exchangePage.clickDollars()
+        exchangePage.clickCash()
+        const successMsg = exchangePage.successMsg
         expect(successMsg).toHaveText('Foreign currency cash was successfully purchased.')
     })
 })
